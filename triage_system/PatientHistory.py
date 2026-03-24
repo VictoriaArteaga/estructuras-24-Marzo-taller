@@ -1,5 +1,5 @@
 class PatientHistory:
-# PILAS 
+
 
     def __init__(self):
         self.stackRecords = []

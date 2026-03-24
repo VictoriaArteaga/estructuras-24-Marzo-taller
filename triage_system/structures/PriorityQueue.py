@@ -1,6 +1,5 @@
 class PriorityQueue:
     
-    # COLAS 
     
     def __init__(self):
         self.queueNodes = [] 
