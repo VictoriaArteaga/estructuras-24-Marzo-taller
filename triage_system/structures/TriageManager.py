@@ -44,3 +44,16 @@ class TriageManager:
             self.currentData['archiveStack'].pushToHistory(targetPatient)
             
         return targetPatient
+    
+
+    def getSystemState(self):
+
+        return {
+            "high": self.currentData['criticalQueue'].queueNodes,
+            "medium": self.currentData['urgentQueue'].queueNodes,
+            "low": self.currentData['standardQueue'].queueNodes,
+            "history": self.currentData['archiveStack'].stackRecords,
+            "allPatients": self.currentData['globalRegistry']
+        }
+    
+    def 
