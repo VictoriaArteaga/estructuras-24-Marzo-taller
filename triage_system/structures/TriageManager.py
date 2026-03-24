@@ -78,11 +78,11 @@ class TriageManager:
     
     def getCounts(self):
         return {
-            "High": len(self.currentData['criticalQueue'].queueNodes),
-            "Medium": len(self.currentData['urgentQueue'].queueNodes),
-            "Low": len(self.currentData['standardQueue'].queueNodes),
-            "History": len(self.currentData['archiveStack'].stackRecords),
-            "Total": len(self.currentData['globalRegistry'])
+            "high": len(self.currentData['criticalQueue'].queueNodes),
+            "medium": len(self.currentData['urgentQueue'].queueNodes),
+            "low": len(self.currentData['standardQueue'].queueNodes),
+            "history": len(self.currentData['archiveStack'].stackRecords),
+            "total": len(self.currentData['globalRegistry'])
 
         }
     
