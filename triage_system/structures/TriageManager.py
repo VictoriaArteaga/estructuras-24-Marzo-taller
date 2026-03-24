@@ -1,0 +1,46 @@
+import streamlit as st
+from PatientHistory import PatientHistory
+from PriorityQueue import PriorityQueue
+
+
+class TriageManager:
+    def __init__(self):
+
+        self.priorityCategories = ["High", "Medium", "Low"]
+
+        if 'triageState' not in st.session_state:
+            st.session_state.triageState = {
+                'criticalQueue': PriorityQueue(),
+                'urgentQueue': PriorityQueue(),
+                'standardQueue': PriorityQueue(),
+                'archiveStack': PatientHistory(),
+                'globalRegistry': []
+            }
+        
+        self.currentData = st.session_state.triageState
+
+    def registerPatient(self, patient):
+        self.currentData['globalRegistry'].append(patient)
+        
+        if patient.priorityLevel == "High":
+            self.currentData['criticalQueue'].enqueue(patient)
+        elif patient.priorityLevel == "Medium":
+            self.currentData['urgentQueue'].enqueue(patient)
+        else:
+            self.currentData['standardQueue'].enqueue(patient)
+
+    def dispatchPatient(self):
+        targetPatient = None
+        
+        if not self.currentData['criticalQueue'].isQueueEmpty():
+            targetPatient = self.currentData['criticalQueue'].dequeue()
+        elif not self.currentData['urgentQueue'].isQueueEmpty():
+            targetPatient = self.currentData['urgentQueue'].dequeue()
+        elif not self.currentData['standardQueue'].isQueueEmpty():
+            targetPatient = self.currentData['standardQueue'].dequeue()
+            
+        if targetPatient:
+
+            self.currentData['archiveStack'].pushToHistory(targetPatient)
+            
+        return targetPatient
