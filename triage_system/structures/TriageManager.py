@@ -56,4 +56,4 @@ class TriageManager:
             "allPatients": self.currentData['globalRegistry']
         }
     
-    def 
+    
