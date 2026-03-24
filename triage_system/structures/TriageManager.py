@@ -57,3 +57,33 @@ class TriageManager:
         }
     
     
+    def UndoLastDispatch(self):
+
+        patient = self.currentData['archiveStack'].popFromHistory()
+
+        if not patient:
+            return None
+
+        if patient.priorityLevel == "High":
+            self.currentData['criticalQueue'].queueNodes.insert(0, patient)
+
+        elif patient.priorityLevel == "Medium":
+            self.currentData['urgentQueue'].queueNodes.insert(0, patient)
+
+        else:
+            self.currentData['standardQueue'].queueNodes.insert(0, patient)
+
+        return patient  
+    
+    
+    def getCounts(self):
+        return {
+            "High": len(self.currentData['criticalQueue'].queueNodes),
+            "Medium": len(self.currentData['urgentQueue'].queueNodes),
+            "Low": len(self.currentData['standardQueue'].queueNodes),
+            "History": len(self.currentData['archiveStack'].stackRecords),
+            "Total": len(self.currentData['globalRegistry'])
+
+        }
+    
+    
